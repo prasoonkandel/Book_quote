@@ -1,5 +1,4 @@
 import os
-from tarfile import OutsideDestinationError
 
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
