@@ -1,5 +1,3 @@
-from itertools import count
-
 from fastapi import FastAPI
 from pydantic import BaseModel
 from pydantic.types import Json
