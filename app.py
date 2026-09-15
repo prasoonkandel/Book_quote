@@ -10,17 +10,6 @@ class Quote(BaseModel):
     count: int
 
 
-# dummy
-def search(query: str, count: int):
-    return list(range(1, count + 1))
-
-
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
-
-
-@app.post("/quote")
-def read_quote(quote: Quote):
-    quotes = search(quote.query, int(quote.count))
-    return {"quotes": quotes}
+    return {"message": "Welcome to Book Quote"}
