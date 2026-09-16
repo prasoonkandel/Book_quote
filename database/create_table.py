@@ -12,5 +12,3 @@ with engine.begin() as conn:
             );
         """)
     )
-
-print("Table created successfully!")
