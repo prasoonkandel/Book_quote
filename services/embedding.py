@@ -4,6 +4,8 @@ import numpy as np
 import requests
 from dotenv import load_dotenv
 
+from services.vector import normalize_vector
+
 load_dotenv()
 
 API_KEY = os.getenv("OPENROUTER_API_KEY")
@@ -30,7 +32,7 @@ def get_embedding(text):
 
     data = response.json()
 
-    return np.array(data["data"][0]["embedding"], dtype=np.float32)
+    return normalize_vector(np.array(data["data"][0]["embedding"], dtype=np.float32))
 
 
 def get_embeddings_list(texts):
@@ -52,6 +54,8 @@ def get_embeddings_list(texts):
 
     embeddings = []
     for item in data["data"]:
-        embeddings.append(np.array(item["embedding"], dtype=np.float32).tolist())
+        embeddings.append(
+            normalize_vector(np.array(item["embedding"], dtype=np.float32)).tolist()
+        )
 
     return embeddings
