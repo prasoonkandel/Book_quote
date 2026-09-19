@@ -23,6 +23,18 @@ def get_quote_data(quote_id):
         return result.fetchone()
 
 
+def get_quote_data_by_range(start_id, end_id):
+    with engine.connect() as conn:
+        result = conn.execute(
+            text("""
+                SELECT * FROM quotes
+                WHERE id BETWEEN :start_id AND :end_id
+            """),
+            {"start_id": start_id, "end_id": end_id},
+        )
+        return result.fetchall()
+
+
 def get_max_id():
     with engine.connect() as conn:
         result = conn.execute(text("SELECT MAX(id) FROM quotes"))
