@@ -32,7 +32,9 @@ def get_embedding(text):
 
     data = response.json()
 
-    return normalize_vector(np.array(data["data"][0]["embedding"], dtype=np.float32))
+    return normalize_vector(
+        np.array(data["data"][0]["embedding"], dtype=np.float32)
+    ).tolist()
 
 
 def get_embeddings_list(texts):
