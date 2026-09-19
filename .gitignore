@@ -3,3 +3,4 @@
 .env
 /database/__pycache__
 /vector/__pycache__
+/services/__pycache__
