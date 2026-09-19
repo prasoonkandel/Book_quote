@@ -15,7 +15,7 @@ def get_all_quotes_data():
         return result.fetchall()
 
 
-def get_quote_data(quote_id):
+def get_quote_data_by_id(quote_id):
     with engine.connect() as conn:
         result = conn.execute(
             text("SELECT * FROM quotes WHERE id = :quote_id"), {"quote_id": quote_id}
@@ -33,6 +33,21 @@ def get_quote_data_by_range(start_id, end_id):
             {"start_id": start_id, "end_id": end_id},
         )
         return result.fetchall()
+
+
+def get_quotes_list_by_range(start_id, end_id):
+    with engine.connect() as conn:
+        result = conn.execute(
+            text("""
+                SELECT quote FROM quotes
+                WHERE id BETWEEN :start_id AND :end_id
+            """),
+            {"start_id": start_id, "end_id": end_id},
+        )
+        quotes = []
+        for row in result:
+            quotes.append(row[0])
+        return quotes
 
 
 def get_max_id():
