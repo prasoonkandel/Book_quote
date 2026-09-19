@@ -23,6 +23,15 @@ def get_quote_data_by_id(quote_id):
         return result.fetchone()
 
 
+def get_quote_data_list_by_ids(quote_ids):
+    with engine.connect() as conn:
+        result = conn.execute(
+            text("SELECT * FROM quotes WHERE id IN :quote_ids"),
+            {"quote_ids": quote_ids},
+        )
+        return result.fetchall()
+
+
 def get_quote_data_by_range(start_id, end_id):
     with engine.connect() as conn:
         result = conn.execute(
