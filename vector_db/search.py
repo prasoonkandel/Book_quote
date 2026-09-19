@@ -6,11 +6,9 @@ from vector_db.connection import index
 
 def search_top_k(query: list[float], top_k: int = 20):
     results = index.query(
-        vector=query,
-        top_k=top_k,
-        include_metadata=True,
+        vector=query, top_k=top_k, include_values=True, include_metadata=False
     )
     result_ids = []
     for match in results["matches"]:
-        result_ids.append(match["id"])
+        result_ids.append((match["id"], match["values"]))
     return result_ids
