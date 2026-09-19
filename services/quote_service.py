@@ -13,7 +13,7 @@ def get_full_quote_data(quote_ids):
 
 
 def merge_quote_data(a, b):
-    df = a["quote", "author"].merge(b, on="id")
+    df = a[["id", "quote", "author"]].merge(b, on="id")
     return df
 
 
