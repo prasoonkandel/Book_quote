@@ -2,5 +2,5 @@
 /__pycache__
 .env
 /database/__pycache__
-/vector/__pycache__
+/vector_db/__pycache__
 /services/__pycache__
