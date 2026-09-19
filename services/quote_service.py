@@ -24,7 +24,7 @@ def get_top_quotes(query: str, k: int = 20):
         query_embedding = np.array(query_embedding)
         df = pd.DataFrame(top_k, columns=["id", "vector"])
         df["vector"] = df["vector"].apply(np.array)
-        df = merge_quote_data(df, get_full_quote_data(df["id"]))
+        df = merge_quote_data(df, get_full_quote_data(df["id"].tolist()))
         df = similarity_rank(query_embedding, df)
         df = df[["quote", "author", "similarity"]]
         return df.to_dict(orient="records")
