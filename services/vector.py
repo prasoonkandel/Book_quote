@@ -7,4 +7,13 @@ def normalize_vector(vector):
 
 
 def cosine_similarity(A, B):
-    return np.dot(A, B) / (np.linalg.norm(A) * np.linalg.norm(B))
+    return np.dot(A, B)
+
+
+def similarity_rank(query: np.ndarray, results: pd.DataFrame):
+    def similarity_with_query(x):
+        return cosine_similarity(query, x)
+
+    results["similarity"] = results["vector"].apply(similarity_with_query)
+
+    return results.sort_values("similarity", ascending=False)
