@@ -4,7 +4,7 @@ from services.embedding import get_embedding
 from vector_db.connection import index
 
 
-def search_top_k(query: list, top_k: int = 20):
+def search_top_k(query: list[float], top_k: int = 20):
     results = index.query(
         vector=query,
         top_k=top_k,
