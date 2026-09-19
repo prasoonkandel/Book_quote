@@ -1,8 +1,10 @@
 import os
+from signal import SIGRTMIN
 
 import numpy as np
 import requests
 from dotenv import load_dotenv
+from requests.models import CONTENT_CHUNK_SIZE
 
 load_dotenv()
 
@@ -18,6 +20,7 @@ def get_embedding(text):
         "Authorization": f"Bearer {API_KEY}",
         "Content-Type": "application/json",
     }
+
     payload = {
         "model": embedding_model,
         "input": text,
@@ -26,4 +29,7 @@ def get_embedding(text):
 
     response = requests.post(API_URL, headers=headers, json=payload)
     response.raise_for_status()
-    return response.json()
+
+    data = response.json()
+
+    return np.array(data["data"][0]["embedding"], dtype=np.float32)
