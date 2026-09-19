@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from pydantic.types import Json
 
+from services.quote_service import get_top_quotes
+
 app = FastAPI()
 
 
