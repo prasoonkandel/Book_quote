@@ -1,3 +1,4 @@
+import pandas as pd
 from pinecone import Pinecone
 
 import database.queries as db
@@ -15,12 +16,15 @@ for i in range(MIN, MAX + 1, BATCH_SIZE):
     print(f"Processing batch {i}–{batch_end}")
 
     vectors = []
-    quotes_list = db.get_quotes_list_by_range(i, batch_end)
+    quote_data = db.get_quote_data_by_range(i, batch_end)
+    df = pd.DataFrame(quote_data)
+    quotes_list = df["quote"].tolist()
+    id_list = df["id"].tolist()
     embeddings = get_embeddings_list(quotes_list)
     for j in range(i, batch_end + 1):
         vectors.append(
             {
-                "id": str(j),
+                "id": str(id_list[j - i]),
                 "values": embeddings[j - i],
                 "metadata": {"quote": quotes_list[j - i]},
             }

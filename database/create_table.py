@@ -9,7 +9,6 @@ with engine.begin() as conn:
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 quote TEXT NOT NULL,
                 author TEXT,
-                book TEXT NULL,
                 category TEXT
             );
         """)
