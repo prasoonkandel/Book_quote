@@ -19,4 +19,4 @@ Book Quote Finder is a web application that lets user search for relevant book q
 
 
 ## Project Architecture:
-![Architecture](./architecture.png)
+![Architecture](./architecture.jpg)
