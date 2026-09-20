@@ -4,7 +4,7 @@ import database.queries as db
 from services.embedding import get_embeddings_list
 from vector_db.connection import index, pc
 
-MIN = db.get_min_id()[0]
+MIN = 65001
 MAX = db.get_max_id()[0]
 
 BATCH_SIZE = 500
