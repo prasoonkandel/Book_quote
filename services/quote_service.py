@@ -9,11 +9,9 @@ from vector_db.search import search_top_k
 
 def get_full_quote_data(quote_ids):
     quote_data_list = db.get_quote_data_list_by_ids(quote_ids)
-    df = pd.DataFrame(
-        quote_data_list, columns=["id", "quote", "author", "book", "category"]
-    )
+    df = pd.DataFrame(quote_data_list, columns=["id", "quote", "author"])
 
-    df = df[["id", "quote", "author", "book"]]
+    df = df[["id", "quote", "author"]]
     return df
 
 
