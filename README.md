@@ -16,3 +16,7 @@ Book Quote Finder is a web application that lets user search for relevant book q
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg" width="48" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg" width="48" />
 </p>
+
+
+## Project Architecture:
+![Architecture]('./architecture.png')
