@@ -31,3 +31,11 @@ Book Quote Finder is a web application that lets user search for relevant book q
 
 ## Project Architecture:
 ![Architecture](./architecture.jpg)
+
+
+## Related Repository
+
+| Repository                                                               | Description                                          |
+| ------------------------------------------------------------------------ | ---------------------------------------------------- |
+| [Book Quote Finder Frontend](https://github.com/salishaaaa/Book_quote )  | Book Quote Finder frontend                           |
+| **This Repository**                                                      | API, database, semantic search, and backend services |
