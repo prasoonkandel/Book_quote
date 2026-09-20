@@ -8,8 +8,7 @@ with engine.begin() as conn:
             CREATE TABLE IF NOT EXISTS quotes (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 quote TEXT NOT NULL,
-                author TEXT,
-                category TEXT
+                author TEXT
             );
         """)
     )
