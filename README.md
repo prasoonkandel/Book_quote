@@ -11,4 +11,8 @@ Book Quote Finder is a web application that lets user search for relevant book q
 - Get information about a specific book quote
 
 ## Tech Stack
-  <img src="https://skillicons.dev/icons?i=python,fastapi,numpy,pandas,mysql,pinecone,vercel,git,github" />
+<p>
+  <img src="https://skillicons.dev/icons?i=python,fastapi,mysql,vercel,git,github" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg" width="48" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg" width="48" />
+</p>
