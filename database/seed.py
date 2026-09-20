@@ -5,7 +5,7 @@ from database.connection import engine
 
 df = pd.read_csv("data/quotes.csv")
 
-df = df[["quote", "author"]]
+df = df[["quote", "author", "book"]]
 
 df = df.dropna(subset=["quote", "author"])
 
