@@ -4,6 +4,7 @@ Book Quote Finder is a web application that lets user search for relevant book q
 > Work In Progress
 
 ## Features: 
+- Uses semantic search to find the most relevant book quotes
 - Find a book quote from our book quotes database
 - Get a book quote according to your mood
 - Find relavent book quotes to include in your writing
