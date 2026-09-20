@@ -1,7 +1,18 @@
 # Book Quote Finder
 Book Quote Finder is a web application that lets user search for relevant book quotes. It's perfect for writers and researchers. This can be used to find the exact quote out of a book if you remember it partially. It can be also used to verify source of a specific quote. It uses semantic search to find the most relevant book quotes that match the user's query.
 
-> Work In Progress
+<p>
+    <a href="https://book-quote-finder.vercel.app" target="_blank">
+       <img src="https://img.shields.io/badge/Open_Website-22C55E?style=for-the-badge&logo=vercel&logoColor=white" />
+    </a>
+</p>
+
+<p>
+    <a href="https://book-quote-api.vercel.app/docs" target="_blank">
+       <img src="https://img.shields.io/badge/API_Docs-F97316?style=for-the-badge&logo=vercel&logoColor=white" />
+    </a>
+</p>
+
 
 ## Features: 
 - Uses semantic search to find the most relevant book quotes
