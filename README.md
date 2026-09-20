@@ -10,7 +10,7 @@ Book Quote Finder is a web application that lets user search for relevant book q
 - Find relavent book quotes to include in your writing
 - Get information about a specific book quote
 
-## Tech Stack
+## Tech Stack:
 <p>
   <img src="https://skillicons.dev/icons?i=python,fastapi,mysql,vercel,git,github" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg" width="48" />
@@ -19,4 +19,4 @@ Book Quote Finder is a web application that lets user search for relevant book q
 
 
 ## Project Architecture:
-![Architecture]('./architecture.png')
+![Architecture](./architecture.png)
