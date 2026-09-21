@@ -19,7 +19,7 @@ Book Quote Finder is a web application that lets user search for relevant book q
 - Find a book quote from our book quotes database
 - Get a book quote according to your mood
 - Find relavent book quotes to include in your writing
-- Get information about a specific book quote
+- Find a book quote similar to you query
 
 ## Tech Stack:
 <p>
