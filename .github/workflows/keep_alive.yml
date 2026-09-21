@@ -1,8 +1,8 @@
 name: Keep Aiven Database Alive
 on:
   schedule:
-    - cron: "0 */6 * * *" # Runs automatically every 6 hours
-  workflow_dispatch: # Allows you to test it manually with a single button click!
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
 
 jobs:
   ping-db:
