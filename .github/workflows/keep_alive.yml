@@ -2,7 +2,7 @@ name: Keep Aiven Database Alive
 on:
   schedule:
     - cron: "0 */6 * * *" # Runs automatically every 6 hours
-  workflow_dispatch: # Allows you to click a button on GitHub to test it manually!
+  workflow_dispatch: # Allows you to test it manually with a single button click!
 
 jobs:
   ping-db:
@@ -14,35 +14,25 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12" # Recommended stable action runtime
+          python-version: "3.14"
 
       - name: Install dependencies
         run: pip install sqlalchemy pymysql
 
       - name: Execute dummy query
         env:
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_URL: ${{ secrets.DB_URL }}
         run: |
           python -c "
           import os
-          from urllib.parse import quote_plus
           from sqlalchemy import create_engine, text
 
-          # Reconstruct the exact URL using your code logic
-          user = quote_plus(os.getenv('DB_USER') or '')
-          password = quote_plus(os.getenv('DB_PASSWORD') or '')
-          host = os.getenv('DB_HOST')
-          port = os.getenv('DB_PORT')
-          name = os.getenv('DB_NAME')
-
-          db_url = f'mysql+pymysql://{user}:{password}@{host}:{port}/{name}'
+          db_url = os.getenv('DB_URL')
+          if not db_url:
+              raise ValueError('DB_URL secret is missing or empty!')
 
           engine = create_engine(db_url)
           with engine.connect() as conn:
               conn.execute(text('SELECT 1'))
-          print('Keep alive successful!')
+          print('Keep alive ping successful!')
           "
