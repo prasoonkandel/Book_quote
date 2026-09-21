@@ -6,7 +6,7 @@ on:
 
 jobs:
   ping-db:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04 # Pinned to avoid deprecation notices
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -14,7 +14,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.14"
+          python-version: "3.12" # Fixed version
 
       - name: Install dependencies
         run: pip install sqlalchemy pymysql
@@ -31,7 +31,11 @@ jobs:
           if not db_url:
               raise ValueError('DB_URL secret is missing or empty!')
 
-          engine = create_engine(db_url)
+          # Aiven MySQL requires SSL parameters to connect securely
+          connect_args = {'ssl': {'fake_user': True}}
+
+          engine = create_engine(db_url, connect_args=connect_args)
+
           with engine.connect() as conn:
               conn.execute(text('SELECT 1'))
           print('Keep alive ping successful!')
