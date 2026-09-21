@@ -19,8 +19,8 @@ engine = create_engine(
     pool_pre_ping=True,
     pool_recycle=1800,
     connect_args={
-        "connect_timeout": 30,
-        "read_timeout": 120,
-        "write_timeout": 120,
+        "connect_timeout": 60,
+        "read_timeout": 600,
+        "write_timeout": 600,
     },
 )

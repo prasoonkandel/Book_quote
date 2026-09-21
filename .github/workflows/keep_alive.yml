@@ -6,7 +6,7 @@ on:
 
 jobs:
   ping-db:
-    runs-on: ubuntu-24.04 # Pinned to avoid deprecation notices
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -14,7 +14,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12" # Fixed version
+          python-version: "3.12"
 
       - name: Install dependencies
         run: pip install sqlalchemy pymysql
@@ -27,14 +27,20 @@ jobs:
           import os
           from sqlalchemy import create_engine, text
 
-          db_url = os.getenv('DB_URL')
-          if not db_url:
+          raw_url = os.getenv('DB_URL')
+          if not raw_url:
               raise ValueError('DB_URL secret is missing or empty!')
 
-          # Aiven MySQL requires SSL parameters to connect securely
-          connect_args = {'ssl': {'fake_user': True}}
+          # 1. Ensure the URL uses mysql+pymysql instead of a plain mysql protocol
+          if raw_url.startswith('mysql://'):
+              raw_url = raw_url.replace('mysql://', 'mysql+pymysql://', 1)
 
-          engine = create_engine(db_url, connect_args=connect_args)
+          # 2. Force Aiven SSL requirements directly via the URL query parameters
+          joiner = '&' if '?' in raw_url else '?'
+          ssl_url = f'{raw_url}{joiner}ssl_mode=REQUIRED'
+
+          print('Attempting connection to database...')
+          engine = create_engine(ssl_url)
 
           with engine.connect() as conn:
               conn.execute(text('SELECT 1'))
