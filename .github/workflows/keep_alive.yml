@@ -1,4 +1,5 @@
 name: Keep Aiven Database Alive
+
 on:
   schedule:
     - cron: "*/15 * * * *"
@@ -7,6 +8,7 @@ on:
 jobs:
   ping-db:
     runs-on: ubuntu-24.04
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -19,30 +21,43 @@ jobs:
       - name: Install dependencies
         run: pip install sqlalchemy pymysql
 
-      - name: Execute dummy query
+      - name: Execute keep-alive query
         env:
           DB_URL: ${{ secrets.DB_URL }}
         run: |
-          python -c "
+          python - <<'PY'
           import os
           from sqlalchemy import create_engine, text
+          from sqlalchemy.engine import make_url
 
-          raw_url = os.getenv('DB_URL')
+          raw_url = os.getenv("DB_URL")
           if not raw_url:
-              raise ValueError('DB_URL secret is missing or empty!')
+              raise ValueError("The DB_URL GitHub secret is missing or empty.")
 
-          # 1. Ensure the URL uses mysql+pymysql instead of a plain mysql protocol
-          if raw_url.startswith('mysql://'):
-              raw_url = raw_url.replace('mysql://', 'mysql+pymysql://', 1)
+          # Ensure SQLAlchemy uses the PyMySQL driver.
+          if raw_url.startswith("mysql://"):
+              raw_url = raw_url.replace(
+                  "mysql://",
+                  "mysql+pymysql://",
+                  1,
+              )
 
-          # 2. Force Aiven SSL requirements directly via the URL query parameters
-          joiner = '&' if '?' in raw_url else '?'
-          ssl_url = f'{raw_url}{joiner}ssl_mode=REQUIRED'
+          # PyMySQL does not support ssl_mode / ssl-mode URL options.
+          # Remove them while keeping all other URL settings intact.
+          db_url = make_url(raw_url).difference_update_query(
+              ["ssl_mode", "ssl-mode"]
+          )
 
-          print('Attempting connection to database...')
-          engine = create_engine(ssl_url)
+          print("Attempting connection to database...")
+          engine = create_engine(
+              db_url,
+              pool_pre_ping=True,
+              connect_args={"connect_timeout": 30},
+          )
 
-          with engine.connect() as conn:
-              conn.execute(text('SELECT 1'))
-          print('Keep alive ping successful!')
-          "
+          with engine.connect() as connection:
+              connection.execute(text("SELECT 1"))
+
+          engine.dispose()
+          print("Keep alive ping successful!")
+          PY
