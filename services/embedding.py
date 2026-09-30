@@ -10,7 +10,7 @@ load_dotenv()
 
 API_KEY = os.getenv("OPENROUTER_API_KEY")
 API_URL = os.getenv("OPENROUTER_API_URL")
-embedding_model = "voyage-4-lite"
+embedding_model = "voyageai/voyage-4-lite"
 
 DIMENSIONS = 1024
 
